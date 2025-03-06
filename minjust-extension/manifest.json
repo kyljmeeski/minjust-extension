@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Minjust Extension",
+  "version": "1.0",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "host_permissions": ["https://online.minjust.gov.kg/*", "https://docs.minjust.gov.kg/*"],
+  "commands": {
+    "copyData": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C"
+      },
+      "description": "Копировать данные"
+    },
+    "pasteData": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V"
+      },
+      "description": "Вставить данные"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://online.minjust.gov.kg/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
