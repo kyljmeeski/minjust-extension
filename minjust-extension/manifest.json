@@ -7,13 +7,15 @@
   "commands": {
     "copyData": {
       "suggested_key": {
-        "default": "Ctrl+Shift+C"
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
       },
       "description": "Копировать данные"
     },
     "pasteData": {
       "suggested_key": {
-        "default": "Ctrl+Shift+V"
+        "default": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V"
       },
       "description": "Вставить данные"
     }
@@ -23,7 +25,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://online.minjust.gov.kg/*"],
+      "matches": ["https://online.minjust.gov.kg/*", "https://docs.minjust.gov.kg/*"],
       "js": ["content.js"]
     }
   ],
