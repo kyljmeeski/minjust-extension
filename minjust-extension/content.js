@@ -11,8 +11,10 @@ const copyData = () => {
 
     const fullName = fullNameElement ? fullNameElement.singleNodeValue.textContent : '';
     const regNumber = regNumberElement ? regNumberElement.singleNodeValue.textContent : '';
-    const inn = innElement ? innElement.singleNodeValue.textContent : '';
+    const inn = (innElement && innElement.singleNodeValue.textContent !== '') ? innElement.singleNodeValue.textContent : '00000000000000';
     const okpo = okpoElement ? okpoElement.singleNodeValue.textContent : '';
+
+    console.log(innElement && innElement.singleNodeValue.textContent === '');
 
     const data = { fullName, regNumber, inn, okpo };
 
@@ -42,12 +44,24 @@ const pasteData = () => {
     const signer = document.getElementById('signer');
     const pin = document.getElementById('pin');
 
-    number.value = data.regNumber;
-    name.value = data.fullName;
-    inn.value = data.inn;
-    okpo.value = data.okpo;
-    signer.value = '987654321'; // ИНН для ЭП
-    pin.value = '123456'; // Пин код для ЭП
+    simulateTyping(number, data.regNumber);
+    simulateTyping(name, data.fullName);
+    simulateTyping(inn, data.inn);
+    simulateTyping(okpo, data.okpo);
+    simulateTyping(signer, '987654321'); // ИНН для ЭП
+    simulateTyping(pin, '123456'); // Пин код для ЭП
+
+    console.log(number.value);
+}
+
+const simulateTyping = (element, value) => {
+  element.focus();
+  
+  element.value = value;
+  
+  element.dispatchEvent(new Event('input', { bubbles: true })); 
+
+  element.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
